@@ -2,6 +2,9 @@
     TODO: Import all the classes that you have defined and make use of them to build the program.
  */
 
+import Acounts.AccountManagement;
+import Acounts.TeacherAcounts;
+
 import java.util.Scanner;
 
 
@@ -39,11 +42,12 @@ public class Main {
                     break;
                 }
             }
-            teacherAcounts.setUsername(teacherNewUsername);
+            teacherAcounts.setNewUsername(teacherNewUsername);
             System.out.println("Enter your password");
             String teacherNewPassword;
             teacherNewPassword = input.nextLine();
-            teacherAcounts.setPassword(teacherNewPassword);
+            teacherAcounts.setNewPassword(teacherNewPassword);
+
 
             teacherAcounts.newTeacherAccount();
             System.out.println("Account created successful!");
@@ -60,10 +64,10 @@ public class Main {
             }
             System.out.println("Enter your password");
             String teacherPassword = input.nextLine();
-            if (TeacherAcounts.teacherUsernamePassword.get(teacherUsername) == teacherPassword){
+            if (TeacherAcounts.teacherUsernamePassword.get(teacherUsername) == teacherPassword) {
                 System.out.println("Welcome " + teacherUsername + "!");
-            }
-            else {
+                teacherSignedUpMenu();
+            } else {
                 System.out.println("Password incorrect!");
             }
         } else {
@@ -71,6 +75,15 @@ public class Main {
             teacherAccountsMenu();
         }
 
+    }
+
+    public static void teacherSignedUpMenu() {
+        System.out.println("1. Take courses\n2. View courses list\n3. View course's list of students\n4. Score students\n 5. Teacher poll score\n6. Account settings");
+        int order = Integer.valueOf(input.nextInt());
+        switch (order) {
+            case 1:
+                break;
+        }
     }
 
     public static void signUpMenu() {
