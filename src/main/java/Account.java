@@ -1,6 +1,7 @@
+import java.util.HashMap;
 import java.util.UUID;
 
-public class Account {
+public class Account implements AccountManagement {
     private String username;
     // TODO: Passwords should hashed
     private String password;
@@ -9,6 +10,7 @@ public class Account {
     @Override
     public boolean validatePassword(String enteredPassword) {
         //TODO
+
         return false;
     }
 
