@@ -1,7 +1,7 @@
 package Users;
 
 public interface UserManagment {
-    public void setNewNameAndFamily(String inputName);
-    public void ChangedNameAndFamily(String inputChangedName);
+    public void setNewTeacherName(String inputName);
+    public void setChangeTeacherName(String inputChangedName);
 
 }

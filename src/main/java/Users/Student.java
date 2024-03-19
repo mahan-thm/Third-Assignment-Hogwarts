@@ -2,12 +2,12 @@ package Users;
 
 public class Student implements UserManagment{
     @Override
-    public void setNewNameAndFamily(String inputName) {
+    public void setNewTeacherName(String inputName) {
 
     }
 
     @Override
-    public void ChangedNameAndFamily(String inputChangedName) {
+    public void setChangeTeacherName(String inputChangedName) {
 
     }
 }
