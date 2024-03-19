@@ -9,4 +9,6 @@ public interface AccountManagement {
     public boolean validatePassword(String enteredPassword);
     public void changeUsername(String changedUsername);
     public void changePassword(String changedPassword);
+    public void setNewName(String teacherName);
+    public void setChangeName(String inputChangedName);
 }

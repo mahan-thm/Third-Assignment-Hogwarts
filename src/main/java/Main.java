@@ -3,7 +3,6 @@
  */
 
 import Acounts.TeacherAccount;
-import Users.Teacher;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -27,7 +26,7 @@ public class Main {
             System.out.println("Welcome to Hogwarts!\nPlease choose your personality\n1. Teacher\n2. Student\n3. Exit");
             int order = Integer.parseInt(input.nextLine());
             if (order == 1) {
-                teacherAccountsMenu();
+                teacherAccountMenu();
             } else if (order == 2) {
 
             } else if (order == 3) {
@@ -39,22 +38,21 @@ public class Main {
 
     }
 
-    public static void teacherAccountsMenu() {
+    public static void teacherAccountMenu() {
         System.out.println("1. Sign up\n2. Log in\n3. Back");
         while (true) {
             int order = Integer.parseInt(input.nextLine());
             //____________________________CREATING ACCOUNT____________________________
             if (order == 1) {
                 //take name
+                TeacherAccount teacherAccount = new TeacherAccount();
                 System.out.println("Enter your name and your family name completely");
                 String teacherName = input.nextLine();
-                Teacher teacher = new Teacher();
-                teacher.setNewTeacherName(teacherName);
+                teacherAccount.setNewName(teacherName);
 
                 //take username
                 System.out.println("Enter your chosen username\n(Duplicated is not valid)");
                 String teacherNewUsername;
-                TeacherAccount teacherAccount = new TeacherAccount();
                 while (true) {
                     teacherNewUsername = input.nextLine();
                     if (TeacherAccount.teacherUserPassHashMap.containsKey(teacherNewUsername)) {
@@ -72,15 +70,14 @@ public class Main {
                 teacherAccount.setNewPassword(teacherNewPassword);
 
                 teacherAccount.setAccountID(UUID.randomUUID());
-                teacherAccount.setTeacheUserPassHashMap();
-                teacher.setTeacherHashMap();
+                teacherAccount.setTeacherUserPassHashMap();
+                teacherAccount.setTeacherHashMap();
                 System.out.println("Account created successful!");
                 runMenu();
 
             //____________________________LOGGING IN____________________________
             } else if (order == 2) {
                 //TAKING USERNAME
-                Teacher teacher = new Teacher();
                 TeacherAccount teacherAccount = new TeacherAccount();
                 System.out.println("Enter your username");
                 String teacherUsername;
@@ -95,10 +92,10 @@ public class Main {
                 //TAKING PASS
                 System.out.println("Enter your password");
                 while (true) {
-                    System.out.println(teacher.teacherHashMap);
+                    System.out.println(teacherAccount.uuidTeacherAccountHashMap);
                     String teacherPassword = input.nextLine();
                     if (Objects.equals(TeacherAccount.teacherUserPassHashMap.get(teacherUsername), teacherPassword)) {
-                        System.out.println("Welcome " + teacher.teacherHashMap.get(teacherAccount.getAccountID()).getTeacherName() + "!");
+//                        System.out.println("Welcome " + teacherAccount.uuidTeacherAccountHashMap.get() + "!");
                         break;
                     } else {
                         System.out.println("Password incorrect! Try again"); /////////////////////////////////////creat back click
@@ -109,7 +106,7 @@ public class Main {
                 break;
             } else {
                 System.out.println("Invalid choice");
-                teacherAccountsMenu();
+                teacherAccountMenu();
             }
         }
         runMenu();
@@ -129,16 +126,16 @@ public class Main {
     }
 
     public static void takeCoursesMenu() {
-        Teacher teacher = new Teacher();
+        TeacherAccount teacherAccount = new TeacherAccount();
         System.out.println("Enter the name of course you wish to teach");
         String courseName = input.nextLine();
-        teacher.setTeacherCourse(courseName);
+        teacherAccount.setTeacherCourse(courseName);
     }
 
     public static void viewCourseListMenu() {
-        Teacher teacher = new Teacher();
+        TeacherAccount teacherAccount = new TeacherAccount();
         System.out.println("This is the courses you chose to present");
-        System.out.println(teacher.getTeacherCourse());
+        System.out.println(teacherAccount.getTeacherCourse());
 
     }
 
