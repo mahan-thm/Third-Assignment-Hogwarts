@@ -7,8 +7,5 @@ public interface AccountManagement {
     public void setPassword(String enteredPassword);
     public void setAccountID(UUID accountID);
     public boolean validatePassword(String enteredPassword);
-    public void setChangedUsername(String changedUsername);
-    public void setChangedPassword(String changedPassword);
-    public void setNewName(String teacherName);
-    public void setChangeName(String inputChangedName);
+    public void setName(String teacherName);
 }

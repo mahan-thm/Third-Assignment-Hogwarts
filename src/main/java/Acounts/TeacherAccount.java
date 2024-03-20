@@ -9,7 +9,7 @@ public class TeacherAccount implements AccountManagement {
     private String password;
     private UUID accountID;
     private String teacherName;
-    private ArrayList<String> teacherCourse;
+    private final ArrayList<String> teacherCourseList = new ArrayList<String>();
 
 
 //    public static HashMap<String, String> teacherUserPassHashMap = new HashMap<String, String>();
@@ -40,27 +40,15 @@ public class TeacherAccount implements AccountManagement {
     }
 
     @Override
-    public void setChangedUsername(String newUsername) {
-        this.username = username;
-    }
-
-    @Override
-    public void setChangedPassword(String newPassword) {
-        this.password = password;
-    }
-
-    @Override
-    public void setNewName(String teacherName) {
+    public void setName(String teacherName) {
         this.teacherName = teacherName;
     }
 
-    @Override
-    public void setChangeName(String inputChangedName) {
-        this.teacherName = inputChangedName;
+    public void setTeacherCourseList(String courseName) {
+        teacherCourseList.add(courseName);
     }
-
-    public void setTeacherCourse(String inputCourseName) {
-        teacherCourse.add(inputCourseName);
+    public void deleteCourse(String deleteCourseName){
+        teacherCourseList.remove(deleteCourseName);
     }
     //___________________________GETTER______________________________
     public String getPassword()
@@ -78,8 +66,8 @@ public class TeacherAccount implements AccountManagement {
         return teacherName;
     }
 
-    public ArrayList<String> getTeacherCourse() {
-        return teacherCourse;
+    public ArrayList<String> getTeacherCourseList() {
+        return teacherCourseList;
     }
 
 }
