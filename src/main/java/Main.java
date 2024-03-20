@@ -19,6 +19,14 @@ public class Main {
 
     }
 
+
+    public static void putUuidTeacherAccountHashMap(TeacherAccount teacherAccount){
+        TeacherAccount.uuidTeacherAccountHashMap.put(teacherAccount.getAccountID(), teacherAccount);
+    }
+    public static void putUsernameUuidHashMap(TeacherAccount teacherAccount){
+        TeacherAccount.usernameUuidHashMap.put(teacherAccount.getUsername(), teacherAccount.getAccountID());
+    }
+
     public static void runMenu() {
         // TODO: Menu will be shown here...
 
@@ -55,27 +63,31 @@ public class Main {
                 String teacherNewUsername;
                 while (true) {
                     teacherNewUsername = input.nextLine();
-                    if (TeacherAccount.teacherUserPassHashMap.containsKey(teacherNewUsername)) {
+                    if (TeacherAccount.usernameUuidHashMap.containsKey(teacherNewUsername)) {
                         System.out.println("Username exists! Try again");
                     } else {
                         break;
                     }
                 }
+                teacherAccount.setUsername(teacherNewUsername);
 
                 //take password
-                teacherAccount.setNewUsername(teacherNewUsername);
                 System.out.println("Enter your password");
                 String teacherNewPassword;
                 teacherNewPassword = input.nextLine();
-                teacherAccount.setNewPassword(teacherNewPassword);
+                teacherAccount.setPassword(teacherNewPassword);
 
+                //take id
                 teacherAccount.setAccountID(UUID.randomUUID());
-                teacherAccount.setTeacherUserPassHashMap();
-                teacherAccount.setTeacherHashMap();
+
+                //put to HashMap
+                putUsernameUuidHashMap(teacherAccount);
+                putUuidTeacherAccountHashMap(teacherAccount);
+
                 System.out.println("Account created successful!");
                 runMenu();
 
-            //____________________________LOGGING IN____________________________
+                //____________________________LOGGING IN____________________________
             } else if (order == 2) {
                 //TAKING USERNAME
                 TeacherAccount teacherAccount = new TeacherAccount();
@@ -83,19 +95,19 @@ public class Main {
                 String teacherUsername;
                 while (true) {
                     teacherUsername = input.nextLine();
-                    if (!TeacherAccount.teacherUserPassHashMap.containsKey(teacherUsername)) {
+                    if (!TeacherAccount.usernameUuidHashMap.containsKey(teacherUsername)) {
                         System.out.println("Username not found! Try again");
                     } else {
                         break;
                     }
                 }
+                teacherAccount = TeacherAccount.uuidTeacherAccountHashMap.get(TeacherAccount.usernameUuidHashMap.get(teacherUsername));
                 //TAKING PASS
                 System.out.println("Enter your password");
                 while (true) {
-                    System.out.println(teacherAccount.uuidTeacherAccountHashMap);
                     String teacherPassword = input.nextLine();
-                    if (Objects.equals(TeacherAccount.teacherUserPassHashMap.get(teacherUsername), teacherPassword)) {
-//                        System.out.println("Welcome " + teacherAccount.uuidTeacherAccountHashMap.get() + "!");
+                    if (Objects.equals(TeacherAccount.uuidTeacherAccountHashMap.get(TeacherAccount.usernameUuidHashMap.get(teacherUsername)).getPassword(), teacherPassword)) {
+                        System.out.println("Welcome " + teacherAccount.getTeacherName() + "!");
                         break;
                     } else {
                         System.out.println("Password incorrect! Try again"); /////////////////////////////////////creat back click

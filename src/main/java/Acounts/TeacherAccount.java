@@ -11,27 +11,21 @@ public class TeacherAccount implements AccountManagement {
     private String teacherName;
     private ArrayList<String> teacherCourse;
 
-    TeacherAccount teacherAccount = new TeacherAccount();
 
-    public static HashMap<String, String> teacherUserPassHashMap = new HashMap<String, String>();
-    public HashMap<UUID, TeacherAccount> uuidTeacherAccountHashMap = new HashMap<UUID, TeacherAccount>();
-
-//
+//    public static HashMap<String, String> teacherUserPassHashMap = new HashMap<String, String>();
+    public static HashMap<String, UUID> usernameUuidHashMap = new HashMap<String, UUID>();
+    public static HashMap<UUID, TeacherAccount> uuidTeacherAccountHashMap = new HashMap<UUID, TeacherAccount>();
     //    public static HashMap<UUID, Teacher> teacher = new HashMap<UUID, Teacher>();
 
 
     //________________________SETTER_____________________________
-    public void setTeacherUserPassHashMap() {
-        teacherUserPassHashMap.put(username, password);
-    }
-
     @Override
-    public void setNewUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
     @Override
-    public void setNewPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -46,12 +40,12 @@ public class TeacherAccount implements AccountManagement {
     }
 
     @Override
-    public void changeUsername(String newUsername) {
+    public void setChangedUsername(String newUsername) {
         this.username = username;
     }
 
     @Override
-    public void changePassword(String newPassword) {
+    public void setChangedPassword(String newPassword) {
         this.password = password;
     }
 
@@ -68,12 +62,14 @@ public class TeacherAccount implements AccountManagement {
     public void setTeacherCourse(String inputCourseName) {
         teacherCourse.add(inputCourseName);
     }
-
-    public void setTeacherHashMap() {
-        uuidTeacherAccountHashMap.put(teacherAccount.getAccountID(), teacherAccount);
-    }
-
     //___________________________GETTER______________________________
+    public String getPassword()
+    {
+        return password;
+    }
+    public String getUsername(){
+        return username;
+    }
     public UUID getAccountID() {
         return accountID;
     }
@@ -86,5 +82,6 @@ public class TeacherAccount implements AccountManagement {
         return teacherCourse;
     }
 
-
 }
+
+
