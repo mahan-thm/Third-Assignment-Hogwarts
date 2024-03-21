@@ -1,15 +1,15 @@
 package Acounts;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
-public class TeacherAccount implements AccountManagement {
+public class StudentAccount implements AccountManagement {
     private String username;
     private String password;
     private UUID accountID;
-    private String teacherName;
-    private final ArrayList<String> teacherCourseList = new ArrayList<String>();
+    private String studentName;
+    private final ArrayList<String> studentCourseList = new ArrayList<String>();
+
 
 
 
@@ -36,36 +36,29 @@ public class TeacherAccount implements AccountManagement {
     }
 
     @Override
-    public void setName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public void setTeacherCourseList(String courseName) {
-        teacherCourseList.add(courseName);
-    }
-    public void deleteCourse(String deleteCourseName){
-        teacherCourseList.remove(deleteCourseName);
-    }
     //___________________________GETTER______________________________
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return username;
     }
+
     public UUID getAccountID() {
         return accountID;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public ArrayList<String> getTeacherCourseList() {
-        return teacherCourseList;
+    public ArrayList<String> getStudentCourseList() {
+        return studentCourseList;
     }
 
 }
-
-
