@@ -9,8 +9,6 @@ public class TeacherAccount implements AccountManagement {
     private String password;
     private UUID accountID;
     private String teacherName;
-    private final HashMap<String, UUID> courseUuidHashMap = new HashMap<String, UUID>();
-//    private HashMap<String, ArrayList<String>> teacherCourse_StudentsHasMap = new HashMap<String, ArrayList<String>>(); //<course name, list of students>
 
     //________________________SETTER_____________________________
     @Override
@@ -38,18 +36,7 @@ public class TeacherAccount implements AccountManagement {
         this.teacherName = teacherName;
     }
 
-//    public void setCourseUuidHashMap(String courseName) {
-//        courseUuidHashMap.put(courseName, UUID.randomUUID());
-//    }
 
-    public void setTeacherCourse_StudentsHasMap(UUID courseId){
-
-
-    }
-
-    public void deleteCourse(String deleteCourseName) {
-        courseUuidHashMap.remove(deleteCourseName);
-    }
 
 
 
@@ -70,9 +57,6 @@ public class TeacherAccount implements AccountManagement {
         return teacherName;
     }
 
-    public HashMap<String, UUID> getCourseUuidHashMap() {
-        return courseUuidHashMap;
-    }
 
 }
 

@@ -9,7 +9,7 @@ public class StudentAccount implements AccountManagement {
     private String password;
     private UUID accountID;
     private String studentName;
-    private final ArrayList<String> studentCourseList = new ArrayList<String>();
+    private ArrayList<UUID> studentCourseIdList = new ArrayList<UUID>();
 
 
 
@@ -41,6 +41,10 @@ public class StudentAccount implements AccountManagement {
         this.studentName = studentName;
     }
 
+    public void setStudentCourseIdList(UUID courseId){
+        studentCourseIdList.add(courseId);
+    }
+
     //___________________________GETTER______________________________
     public String getPassword() {
         return password;
@@ -58,8 +62,8 @@ public class StudentAccount implements AccountManagement {
         return studentName;
     }
 
-    public ArrayList<String> getStudentCourseList() {
-        return studentCourseList;
+    public ArrayList<UUID> getStudentCourseIdList() {
+        return studentCourseIdList;
     }
 
 }
