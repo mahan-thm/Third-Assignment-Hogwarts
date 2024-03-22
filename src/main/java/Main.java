@@ -5,6 +5,7 @@
 import Acounts.StudentAccount;
 import Acounts.TeacherAccount;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.UUID;
@@ -38,9 +39,6 @@ public class Main {
         UsernameID.usernameUuidStudentHashMap.put(studentAccount.getUsername(), studentAccount.getAccountID());
     }
 
-    public static void putCoursesHashMap(TeacherAccount teacherAccount) {
-        Course.courseHashMap.put(teacherAccount.getTeacherName(), teacherAccount.getTeacherCourseList());
-    }
 
     public static void runMenu() {
         // TODO: Menu will be shown here...
@@ -76,6 +74,7 @@ public class Main {
             System.out.println("\033[31;1mWRONG PASSWORD. ACCESS DENIED!\033[0m");
             runMenu();
         }
+        adminLoginMenu();
 
 
     }
@@ -92,9 +91,11 @@ public class Main {
             } else if (Objects.equals(order, "3")) {
 
             } else if (Objects.equals(order, "4")) {
-
+                creatCourseMenu();
+                break;
             } else if (Objects.equals(order, "5")) {
-
+                runMenu();
+                break;
             } else {
                 System.out.println("\033[34mInvalid choice\033[0m");
             }
@@ -111,12 +112,13 @@ public class Main {
             if (Objects.equals(newCourseName, "0")) {
                 break;
             }
-            if (course.getCourseLisst().contains(newCourseName)) {
+            if (Course.getCourseList().contains(newCourseName)) {
                 System.out.println("\033[34mThis course exists!\033[0m");
                 continue;
             }
-            course.setAddCourseList(newCourseName);
+            Course.setAddCourseList(newCourseName);
         }
+        adminLoginMenu();
     }
 
     //{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ REFERS TO STUDENT }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
@@ -220,10 +222,11 @@ public class Main {
     }
 
     public static void studentLoggedInMenu(StudentAccount studentAccount) {
-        System.out.println("\033[34m1. Take course\n2. View courses list\n3. View course's list of students\n4. Score students\n5. Teacher poll score\n6. Account settings\n7. Back\033[0m");
+        System.out.println("\033[34m1. Take course\n2. View courses list\n3. Score teacher\n4. Account settings\n5. Back\033[0m");
         while (true) {
             String order = input.nextLine();
             if (Objects.equals(order, "1")) {
+                takeCourseStudentMenu();
 
                 break;
             } else if (Objects.equals(order, "2")) {
@@ -234,19 +237,42 @@ public class Main {
             } else if (Objects.equals(order, "4")) {
 
             } else if (Objects.equals(order, "5")) {
-
-            } else if (Objects.equals(order, "6")) {
-                break;
-            } else if (Objects.equals(order, "7")) {
-                studentAccountMenu();
+                runMenu();
                 break;
             } else {
                 System.out.println("\033[34mInvalid choice\033[0m");
             }
         }
-
     }
 
+    public static void takeCourseStudentMenu() {
+        System.out.println("\033[31;1mThere are the courses you can take.\n1mType the course ID that you want to take.\033[0m");
+        System.out.println("\033[31mNOTE 1 : You can register the course by pressing enter.");
+        System.out.println("NOTE 2 : You can confirm and get back to menu by entering the num '0'.\033[0m");
+
+        ArrayList<String> courseIdList = new ArrayList<String>();
+        for (String key1 : Course.getTeacher_courseUuidHashMap().keySet()) {
+            for (String key2 : Course.getTeacher_courseUuidHashMap().get(key1).keySet()) {
+                String teacherName = key1;
+                String teacherCourse = key2;
+                UUID teacherCourseId = Course.getTeacher_courseUuidHashMap().get(key1).get(key2);
+                courseIdList.add(teacherCourseId.toString());
+                System.out.println("\033[41;34;1m" + teacherCourse + "\033[0m     " +
+                        "\033[34;1m" + teacherName + "\033[0m     " +
+                        "\033[34m" + teacherCourseId + "\033[0m");
+            }
+        }
+        while (true){
+            String courseId = input.nextLine();
+            if (Objects.equals(courseId, "0")) {
+                break;
+            } else if (!courseIdList.contains(courseId)) {
+                System.out.println("\033[34mThere is no course with tis Id! Try again.\033[0m");
+                continue;
+            }
+
+        }
+    }
 
     //{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ REFERS TO TEACHER }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
     public static void teacherAccountMenu() {
@@ -352,7 +378,7 @@ public class Main {
         while (true) {
             String order = input.nextLine();
             if (Objects.equals(order, "1")) {
-                takeCoursesMenu(teacherAccount);
+                takeCoursesTeacherMenu(teacherAccount);
                 break;
             } else if (Objects.equals(order, "2")) {
                 viewCoursesListMenu(teacherAccount);
@@ -367,7 +393,7 @@ public class Main {
                 accountSettingsMenu(teacherAccount);
                 break;
             } else if (Objects.equals(order, "7")) {
-                teacherAccountMenu();
+                runMenu();
                 break;
             } else {
                 System.out.println("\033[34mInvalid choice\033[0m");
@@ -420,36 +446,44 @@ public class Main {
     public static void viewCoursesListMenu(TeacherAccount teacherAccount) {
         System.out.println("\033[31;1mThere are the courses you set.\033[0m");
         System.out.println("\033[31mNOTE : You can remove a course by entering its name or get back to menu by entering the num '0'.\033[0m");
-        System.out.println("\n" + teacherAccount.getTeacherCourseList());
+        System.out.println("\n" + teacherAccount.getCourseUuidHashMap().keySet());
 
         while (true) {
             String deleteCourseName = input.nextLine();
             if (Objects.equals(deleteCourseName, "0")) {
                 break;
             }
-            if (teacherAccount.getTeacherCourseList().contains(deleteCourseName)) {
+            if (teacherAccount.getCourseUuidHashMap().containsKey(deleteCourseName)) {
                 teacherAccount.deleteCourse(deleteCourseName);
                 System.out.println("\033[32mCourse removed successfuly.\033[0m");
             } else {
                 System.out.println("\033[34mThere is no course with tis name! Try again.\033[0m");
             }
         }
+        Course.setTeacher_courseUuidHashMap(teacherAccount);
         teacherLoggedInMenu(teacherAccount);
     }
 
-    public static void takeCoursesMenu(TeacherAccount teacherAccount) {
-//        System.out.println("\033[31;1mType the course you want to present.\033[0m");
-//        System.out.println("\033[31mNOTE 1 : You can register the course by pressing enter.");
-//        System.out.println("NOTE 2 : You can confirm and get back to menu by entering the num '0'.\033[0m");
-//        while (true) {
-//            String courseName = input.nextLine();
-//
-//            if (Objects.equals(courseName, "0")) {
-//                break;
-//            }
-//            teacherAccount.setTeacherCourseList(courseName);
-//        }
-//        teacherLoggedInMenu(teacherAccount);
+    public static void takeCoursesTeacherMenu(TeacherAccount teacherAccount) {
+        System.out.println("\033[31;1mThere are the courses you can present.\n1mType the course you want to present.\033[0m");
+        System.out.println("\033[31mNOTE 1 : You can register the course by pressing enter.");
+        System.out.println("NOTE 2 : You can confirm and get back to menu by entering the num '0'.\033[0m");
+        for (int i = 0; i < Course.getCourseList().size(); i++) {
+            System.out.println(Course.getCourseList().get(i));
+        }
+        while (true) {
+            String courseName = input.nextLine();
+
+            if (Objects.equals(courseName, "0")) {
+                break;
+            } else if (!Course.getCourseList().contains(courseName)) {
+                System.out.println("\033[34mThere is no course with tis name! Try again.\033[0m");
+                continue;
+            }
+            teacherAccount.setCourseUuidHashMap(courseName);
+        }
+        Course.setTeacher_courseUuidHashMap(teacherAccount);
+        teacherLoggedInMenu(teacherAccount);
 
     }
 }

@@ -9,10 +9,8 @@ public class TeacherAccount implements AccountManagement {
     private String password;
     private UUID accountID;
     private String teacherName;
-    private final ArrayList<String> teacherCourseList = new ArrayList<String>();
-
-
-
+    private final HashMap<String, UUID> courseUuidHashMap = new HashMap<String, UUID>();
+//    private HashMap<String, ArrayList<String>> teacherCourse_StudentsHasMap = new HashMap<String, ArrayList<String>>(); //<course name, list of students>
 
     //________________________SETTER_____________________________
     @Override
@@ -40,20 +38,30 @@ public class TeacherAccount implements AccountManagement {
         this.teacherName = teacherName;
     }
 
-    public void setTeacherCourseList(String courseName) {
-        teacherCourseList.add(courseName);
+//    public void setCourseUuidHashMap(String courseName) {
+//        courseUuidHashMap.put(courseName, UUID.randomUUID());
+//    }
+
+    public void setTeacherCourse_StudentsHasMap(UUID courseId){
+
+
     }
-    public void deleteCourse(String deleteCourseName){
-        teacherCourseList.remove(deleteCourseName);
+
+    public void deleteCourse(String deleteCourseName) {
+        courseUuidHashMap.remove(deleteCourseName);
     }
+
+
+
     //___________________________GETTER______________________________
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return username;
     }
+
     public UUID getAccountID() {
         return accountID;
     }
@@ -62,8 +70,8 @@ public class TeacherAccount implements AccountManagement {
         return teacherName;
     }
 
-    public ArrayList<String> getTeacherCourseList() {
-        return teacherCourseList;
+    public HashMap<String, UUID> getCourseUuidHashMap() {
+        return courseUuidHashMap;
     }
 
 }
