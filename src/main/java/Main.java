@@ -81,11 +81,11 @@ public class Main {
         while (true) {
             String order = input.nextLine();
             if (Objects.equals(order, "1")) {
-                removeAcountMenu();
+                removeAccountMenu();
             } else if (Objects.equals(order, "2")) {
-
+                viewCourseAndStudent();
             } else if (Objects.equals(order, "3")) {
-
+                checkProfile();
             } else if (Objects.equals(order, "4")) {
                 creatCourseMenu();
                 break;
@@ -98,7 +98,80 @@ public class Main {
         }
     }
 
-    public static void removeAcountMenu() {
+    public static void viewCourseAndStudent() {
+        System.out.println("\033[31;1mThere are the courses and the list of their students:\033[0m");
+        System.out.println("\033[31mNOTE : You can get back to menu by entering the num '0'.\033[0m");
+
+        for (UUID key : Course.getCourseId_detailsHashMap().keySet()) {
+            Object teacherName = Course.getCourseId_detailsHashMap().get(key).get("course_teacher");
+            Object courseName = Course.getCourseId_detailsHashMap().get(key).get("course_name");
+            Object courseComment = Course.getCourseId_detailsHashMap().get(key).get("course_comment");
+            Object courseStudent = Course.getCourseId_detailsHashMap().get(key).get("course_students");
+            Object courseId = key;
+
+
+            System.out.println("\033[34;41;1m" + courseName + "\033[0m" +
+                    "\033[34;1m" + "      Teacher: " + teacherName + "        Comment: " + courseComment + "      Course ID: " + courseId + "\033[0m");
+            System.out.println("\033[34m" + courseStudent + "\033[0m");
+        }
+
+
+    }
+
+
+    public static void checkProfile() {
+        System.out.println("\033[31;1mThese are the signed up accounts:\033[0m");
+        System.out.println("\033[31mNOTE : You can have a view of an account profflie by entering its ID; or get back to menu by entering the num '0'.\033[0m");
+        System.out.println("\033[34;1mTeacher Acounts:\033[0m");
+        for (UUID key : UsernameID.uuidTeacherAccountHashMap.keySet()) {
+            TeacherAccount teacherAccount = UsernameID.uuidTeacherAccountHashMap.get(key);
+            System.out.println("\033[34m" + teacherAccount.getUsername() + "\033[0m     " +
+                    "\033[34m" + key + "\033[0m");
+        }
+        System.out.println("\033[34;1mStudent Acounts:\033[0m");
+        for (UUID key : UsernameID.uuidStudentAccountHashMap.keySet()) {
+            StudentAccount studentAccount = UsernameID.uuidStudentAccountHashMap.get(key);
+            System.out.println("\033[34m" + studentAccount.getUsername() + "\033[0m     " +
+                    "\033[34m" + key + "\033[0m");
+        }
+
+        while (true) {
+            String detailsId = input.nextLine();
+            if (Objects.equals(detailsId, "0")) {
+                break;
+            }
+            if (UsernameID.uuidTeacherAccountHashMap.containsKey(UUID.fromString(detailsId))) {
+                String teacherName = UsernameID.uuidTeacherAccountHashMap.get(UUID.fromString(detailsId)).getTeacherName();
+                String teacherUsername = UsernameID.uuidTeacherAccountHashMap.get(UUID.fromString(detailsId)).getUsername();
+                String teacherPassword = UsernameID.uuidTeacherAccountHashMap.get(UUID.fromString(detailsId)).getPassword();
+                String teacherId = detailsId;
+
+                System.out.println("\033[32m" + teacherUsername + " profile: " + "\033[0m");
+                System.out.println("\033[34m" + "Name:  " + teacherName + "\033[0m");
+                System.out.println("\033[34m" + "Username:  " + teacherUsername + "\033[0m");
+                System.out.println("\033[34m" + "Password:  " + teacherPassword + "\033[0m");
+                System.out.println("\033[34m" + "ID:  " + teacherId + "\033[0m");
+
+            } else if (UsernameID.uuidStudentAccountHashMap.containsKey(UUID.fromString(detailsId))) {
+                String studentName = UsernameID.uuidStudentAccountHashMap.get(UUID.fromString(detailsId)).getStudentName();
+                String studentUsername = UsernameID.uuidStudentAccountHashMap.get(UUID.fromString(detailsId)).getUsername();
+                String studentPassword = UsernameID.uuidStudentAccountHashMap.get(UUID.fromString(detailsId)).getPassword();
+                String studentId = detailsId;
+
+                System.out.println("\033[32m" + studentUsername + " profile: " + "\033[0m");
+                System.out.println("\033[34m" + "Name:  " + studentName + "\033[0m");
+                System.out.println("\033[34m" + "Username:  " + studentUsername + "\033[0m");
+                System.out.println("\033[34m" + "Password:  " + studentPassword + "\033[0m");
+                System.out.println("\033[34m" + "ID:  " + studentId + "\033[0m");
+            } else {
+                System.out.println("\033[34mThere is no account with tis ID! Try again.\033[0m");
+            }
+        }
+
+
+    }
+
+    public static void removeAccountMenu() {
         System.out.println("\033[31;1mThese are the signed up accounts:\033[0m");
         System.out.println("\033[31mNOTE : You can remove an account by entering its ID or get back to menu by entering the num '0'.\033[0m");
 
