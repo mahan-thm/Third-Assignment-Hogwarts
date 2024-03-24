@@ -9,6 +9,8 @@ public class TeacherAccount implements AccountManagement {
     private String password;
     private UUID accountID;
     private String teacherName;
+    private float teacherScore = 0;
+    private int voteCount = 0;
 
     //________________________SETTER_____________________________
     @Override
@@ -36,8 +38,13 @@ public class TeacherAccount implements AccountManagement {
         this.teacherName = teacherName;
     }
 
+    public void setTeacherScore(float teacherScore) {
+        this.teacherScore = teacherScore;
+    }
 
-
+    public void setVoteCount(){
+        this.voteCount++;
+    }
 
 
     //___________________________GETTER______________________________
@@ -57,6 +64,13 @@ public class TeacherAccount implements AccountManagement {
         return teacherName;
     }
 
+    public float getTeacherScore(){
+        return teacherScore;
+    }
+
+    public int getVoteCount(){
+        return voteCount;
+    }
 
 }
 
